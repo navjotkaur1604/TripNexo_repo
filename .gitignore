@@ -9,3 +9,11 @@ uploads/*
 coverage/
 .DS_Store
 Thumbs.db
+
+# Module 8 / ETE DevOps & Microservices entrypoints (kept locally, ignored in Git for now)
+docker/
+docker-compose.yml
+.github/
+server/gateway/
+server/services/*/server.js
+server/tests/gateway.test.js
