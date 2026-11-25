@@ -1,0 +1,66 @@
+name: TripNexo CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  backend-test-and-verify:
+    name: Backend Tests & Service Entrypoint Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: server/package-lock.json
+
+      - name: Install backend dependencies
+        working-directory: server
+        run: npm ci
+
+      - name: Run Jest + Supertest suite
+        working-directory: server
+        run: npm test
+
+      - name: Verify backend module syntax (gateway, monolith, microservices)
+        working-directory: server
+        run: |
+          node -c monolith/server.js
+          node -c gateway/server.js
+          node -c services/auth/server.js
+          node -c services/destinations/server.js
+          node -c services/trips/server.js
+          node -c services/budget/server.js
+
+  frontend-test-and-build:
+    name: Frontend Tests & Vite Production Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: client/package-lock.json
+
+      - name: Install frontend dependencies
+        working-directory: client
+        run: npm ci
+
+      - name: Run React Testing Library (Vitest)
+        working-directory: client
+        run: npm test
+
+      - name: Build production bundle
+        working-directory: client
+        run: npm run build

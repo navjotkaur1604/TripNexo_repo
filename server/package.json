@@ -1,0 +1,45 @@
+{
+  "name": "tripnexo-server",
+  "version": "1.0.0",
+  "description": "TripNexo Backend - Modular Express API, Microservices, API Gateway, MongoDB & Redis",
+  "main": "monolith/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node monolith/server.js",
+    "dev:monolith": "nodemon monolith/server.js",
+    "dev:gateway": "nodemon gateway/server.js",
+    "dev:auth": "nodemon services/auth/server.js",
+    "dev:destinations": "nodemon services/destinations/server.js",
+    "dev:trips": "nodemon services/trips/server.js",
+    "dev:budget": "nodemon services/budget/server.js",
+    "start:gateway": "node gateway/server.js",
+    "start:auth": "node services/auth/server.js",
+    "start:destinations": "node services/destinations/server.js",
+    "start:trips": "node services/trips/server.js",
+    "start:budget": "node services/budget/server.js",
+    "seed": "node scripts/seedDestinations.js",
+    "test": "jest --runInBand --forceExit"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "express-validator": "^7.2.0",
+    "helmet": "^8.0.0",
+    "http-proxy-middleware": "^3.0.3",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.0",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "redis": "^4.7.0",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "mongodb-memory-server": "^10.1.2",
+    "nodemon": "^3.1.9",
+    "supertest": "^7.0.0"
+  }
+}

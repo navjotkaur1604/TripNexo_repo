@@ -1,0 +1,17 @@
+{
+  "name": "tripnexo",
+  "version": "1.0.0",
+  "description": "TripNexo - Smart Travel Planning Platform for Rajasthan (MERN Stack | CE-1, CE-2, ETE)",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n API,CLIENT -c yellow,cyan \"npm --prefix server run dev:monolith\" \"npm --prefix client run dev\"",
+    "dev:microservices": "concurrently -n GW,AUTH,DEST,TRIP,BUDGET,CLIENT -c white,green,blue,magenta,yellow,cyan \"npm --prefix server run dev:gateway\" \"npm --prefix server run dev:auth\" \"npm --prefix server run dev:destinations\" \"npm --prefix server run dev:trips\" \"npm --prefix server run dev:budget\" \"npm --prefix client run dev\"",
+    "start": "node server/gateway/server.js",
+    "seed": "node server/scripts/seedDestinations.js",
+    "build": "npm --prefix client run build",
+    "test": "npm --prefix server test && npm --prefix client test"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
